@@ -13,3 +13,37 @@ six==1.16.0
 sqlparse==0.5.0
 tzdata==2024.1
 urllib3==2.2.2
+
+
+
+
+# [Unit]
+# Description=gunicorn daemon
+# After=network.target
+
+# [Service]
+# User=ubuntu
+# Group=www-data
+# WorkingDirectory=/home/ubuntu/django_ec2
+# ExecStart=/home/ubuntu/django_ec2/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/django_ec2.sock myvoting.wsgi:application
+
+# [Install]
+# WantedBy=multi-user.target
+
+
+# server {
+#     listen 80;
+#     server_name 16.171.10.249;
+
+#     location = /favicon.ico { access_log off; log_not_found off; }
+#     location /static/ {
+#         root /home/ubuntu/django_ec2;
+#     }
+
+#     location / {
+#         include proxy_params;
+#         proxy_pass http://unix:/home/ubuntu/django_ec2.sock;
+#     }
+# }
+
+# sudo ln -s /etc/nginx/sites-available/myvoting /etc/nginx/sites-enabled
